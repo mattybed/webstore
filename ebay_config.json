@@ -1,0 +1,6 @@
+{
+    "app_id": "YOUR_EBAY_APP_ID",
+    "cert_id": "YOUR_EBAY_CERT_ID",
+    "dev_id": "YOUR_EBAY_DEV_ID",
+    "auth_token": "YOUR_EBAY_AUTH_TOKEN"
+}
