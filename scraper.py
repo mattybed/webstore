@@ -116,12 +116,21 @@ async def scrape(args: argparse.Namespace) -> List[Listing]:
     async with WatchcountFetcher(args.mode) as fetcher:
         if args.mode == "batch":
             html_list = await asyncio.gather(*(fetcher.fetch(u) for u in urls))
-            for html in html_list:
+            for idx, html in enumerate(html_list):
+                if idx == 0:
+                    # Print the first page's HTML for debugging
+                    with open("debug_first_page.html", "w", encoding="utf-8") as f:
+                        f.write(html)
+                    console.log("Saved first page HTML to debug_first_page.html")
                 for listing in parse_listings(html):
                     listings[listing.id] = listing
         else:
-            for url in urls:
+            for idx, url in enumerate(urls):
                 html = await fetcher.fetch(url)
+                if idx == 0:
+                    with open("debug_first_page.html", "w", encoding="utf-8") as f:
+                        f.write(html)
+                    console.log("Saved first page HTML to debug_first_page.html")
                 for listing in parse_listings(html):
                     listings[listing.id] = listing
 
